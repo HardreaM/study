@@ -13,13 +13,13 @@ class Building:
     def get_build_id(self):
         return self.__build_id
 
+    def set_cafe(self, cafe):
+        self.__cafes.append(cafe)
+
     @property
     def cafes(self):
         for cafe in self.__cafes:
             print(cafe.get_name)
-
-    def del_cafe(self, cafe):
-        self.__cafes.delete(cafe)
     
 class Cafe:
 
@@ -29,8 +29,6 @@ class Cafe:
         self.__floor = floor
 
         self.add_cafe()
-
-        
 
     def add_cafe(self):
         for building in Building.objects:
