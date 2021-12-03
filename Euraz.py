@@ -29,22 +29,22 @@ def get(data):
     period_mask = 0b11111111
     room_mask = 0b1111111111111111
     
-    tarif1 = formate(data, tarif_mask, 0b1000000000000000000000000)
+    tarif1 = formate(data, tarif_mask, 24)
 
     data = data >> 24
 
-    tarif2 = formate(data, tarif_mask, 0b1000000000000000000000000)
+    tarif2 = formate(data, tarif_mask, 24)
 
     data = data >> 24
 
-    period = formate(data, period_mask, 0b100000000)
+    period = formate(data, period_mask, 8)
 
     data = data >> 8
 
-    room = formate(data, room_mask, 0b10000000000000000)
+    room = formate(data, room_mask, 16)
 
     return tarif1, tarif2, period, room
-    
+
 def validate (tarif1, tarif2, period, room):
 
     if (int(tarif1)<2**20 and int(tarif1)>=0 and int(tarif2)<2**20 and int(tarif2)>=0 
@@ -54,10 +54,10 @@ def validate (tarif1, tarif2, period, room):
     
     return False
 
-def formate (data, mask, grand_mask):
+def formate (data, mask, shift):
 
     value = data & mask
-    value = grand_mask | value
+    value = (1 << shift) | value
     value = value >> 1
     value = bin(value).replace('0b1', '')[::-1]
     value = int(value, 2)
