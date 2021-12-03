@@ -1,4 +1,3 @@
-
 def send (data):
     tarif1, tarif2, period, room = data.split(sep=' ')
 
